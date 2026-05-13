@@ -302,6 +302,15 @@ a {
 }
 .lang-btn.active, .lang-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,217,255,0.06); }
 
+/* Lang switcher inside topnav — override sidebar-specific positioning */
+.nav-right .lang-switch {
+  position: static; bottom: auto; left: auto; right: auto;
+  flex-wrap: nowrap; gap: 3px;
+}
+.nav-right .lang-btn {
+  flex: 0 0 auto; width: 36px; padding: 5px 0;
+}
+
 /* ── RTL (Arabic) ── */
 [dir="rtl"] .sidebar { left: auto; right: 0; border-right: none; border-left: 1px solid var(--card-border); }
 [dir="rtl"] .slides-wrap { left: 0; right: var(--nav-w); }
