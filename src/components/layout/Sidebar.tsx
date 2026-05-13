@@ -15,7 +15,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ current, total, onGoTo }: SidebarProps) {
-  const [lang, setLangState] = useState<Lang>('ru');
+  const [lang, setLangState] = useState<Lang>('en');
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
@@ -117,7 +117,7 @@ export default function Sidebar({ current, total, onGoTo }: SidebarProps) {
 
 /* ── ACTIVITY FEED ── */
 export function ActivityFeed() {
-  const [lang] = useState<Lang>('ru');
+  const [lang] = useState<Lang>('en');
   const [idx, setIdx] = useState(0);
   const [entering, setEntering] = useState(false);
   const [leaving, setLeaving] = useState(false);

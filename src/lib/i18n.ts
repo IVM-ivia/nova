@@ -1,5 +1,5 @@
 export type Lang = 'ru' | 'en' | 'de' | 'fr' | 'ar' | 'hi' | 'zh';
-export const LANGS: Lang[] = ['ru', 'en', 'de', 'fr', 'ar', 'hi', 'zh'];
+export const LANGS: Lang[] = ['en', 'de', 'fr', 'ru', 'ar', 'hi', 'zh'];
 
 type TransMap = Record<Lang, string>;
 
