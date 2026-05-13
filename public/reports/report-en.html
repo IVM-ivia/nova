@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Report — Invest Nova LG</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #0f172a;
+    background: #ffffff;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    background: #070e1a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 72px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,217,255,0.12) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+  }
+  .cover-top { position: relative; z-index: 1; }
+  .cover-logo {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 80px;
+  }
+  .logo-mark {
+    width: 48px; height: 48px; border-radius: 13px;
+    background: linear-gradient(135deg, #00d9ff 0%, #8b5cf6 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: #070e1a;
+  }
+  .logo-text { color: #ffffff; }
+  .logo-name {
+    font-size: 16px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .logo-sub {
+    font-size: 10px; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-top: 2px;
+  }
+  .cover-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #00d9ff; font-weight: 600; margin-bottom: 20px;
+  }
+  .cover-title {
+    font-size: 54px; font-weight: 800; color: #ffffff;
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .cover-title em {
+    font-style: normal;
+    background: linear-gradient(135deg, #00d9ff, #8b5cf6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .cover-sub {
+    font-size: 16px; color: rgba(255,255,255,0.5); font-weight: 300;
+    max-width: 480px; line-height: 1.7;
+  }
+  .cover-bottom {
+    position: relative; z-index: 1;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .cover-meta { color: rgba(255,255,255,0.35); font-size: 11px; }
+  .cover-meta strong { color: rgba(255,255,255,0.6); display: block; font-size: 13px; margin-bottom: 4px; }
+  .cover-divider {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(0,217,255,0.4), transparent);
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .page {
+    padding: 64px 72px;
+    max-width: 900px;
+    margin: 0 auto;
+    page-break-before: auto;
+  }
+  .page-break { page-break-before: always; }
+
+  /* ── HEADER ── */
+  .page-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #f1f5f9;
+    margin-bottom: 48px;
+  }
+  .page-header-logo {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ph-mark {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: linear-gradient(135deg, #00d9ff, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #070e1a;
+  }
+  .ph-name { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #475569; }
+  .page-num { font-size: 10px; color: #94a3b8; letter-spacing: 0.1em; }
+
+  /* ── SECTION HEADER ── */
+  .section-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #f0fdff; border: 1px solid #bae6fd;
+    color: #0369a1; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .section-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #00d9ff;
+  }
+  h1.report-title {
+    font-size: 34px; font-weight: 800; color: #0f172a;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  h1.report-title em {
+    font-style: normal; color: #0284c7;
+  }
+  .report-lead {
+    font-size: 15px; color: #64748b; font-weight: 400;
+    line-height: 1.75; max-width: 580px; margin-bottom: 48px;
+  }
+
+  /* ── PHASE ── */
+  .phase {
+    margin-bottom: 40px;
+    padding-left: 24px;
+    border-left: 3px solid #e2e8f0;
+    position: relative;
+  }
+  .phase.active { border-left-color: #00d9ff; }
+  .phase.purple { border-left-color: #8b5cf6; }
+  .phase.green  { border-left-color: #10b981; }
+  .phase.amber  { border-left-color: #f59e0b; }
+  .phase.blue   { border-left-color: #3b82f6; }
+
+  .phase-num {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #94a3b8; margin-bottom: 4px;
+  }
+  .phase h2 {
+    font-size: 18px; font-weight: 700; color: #0f172a;
+    margin-bottom: 12px; letter-spacing: -0.01em;
+  }
+  .phase p {
+    color: #475569; margin-bottom: 10px; font-size: 13px;
+  }
+
+  /* ── LIST ── */
+  ul.checklist { list-style: none; margin: 8px 0 12px; }
+  ul.checklist li {
+    padding: 5px 0 5px 22px; position: relative;
+    color: #475569; font-size: 13px; border-bottom: 1px solid #f8fafc;
+  }
+  ul.checklist li:last-child { border-bottom: none; }
+  ul.checklist li::before {
+    content: '✓'; position: absolute; left: 0;
+    color: #10b981; font-weight: 700; font-size: 11px;
+  }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0 24px;
+    font-size: 12.5px;
+  }
+  thead tr { background: #f8fafc; }
+  thead th {
+    padding: 10px 16px; text-align: left;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  tbody tr { border-bottom: 1px solid #f1f5f9; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 10px 16px; color: #334155; vertical-align: top; }
+  tbody td:last-child { text-align: right; font-weight: 600; color: #0f172a; }
+  tbody tr.total-row td {
+    background: #f0fdff; font-weight: 700; color: #0f172a;
+    font-size: 13.5px; border-top: 2px solid #bae6fd;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: #f0fdff; border: 1px solid #bae6fd;
+    border-left: 4px solid #00d9ff;
+    border-radius: 10px; padding: 20px 24px; margin: 24px 0;
+  }
+  .callout-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #0284c7; margin-bottom: 6px;
+  }
+  .callout-value {
+    font-size: 28px; font-weight: 800; color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+  .callout-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+  .callout-purple {
+    background: #faf5ff; border-color: #d8b4fe;
+    border-left-color: #8b5cf6;
+  }
+  .callout-purple .callout-label { color: #7c3aed; }
+
+  /* ── GRID 2-col ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 16px 0; }
+  .stat-card {
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .stat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; margin-bottom: 6px; }
+  .stat-value { font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; }
+  .stat-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid #f1f5f9; margin: 36px 0; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    margin-top: 60px; padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: #94a3b8;
+  }
+
+  /* ── TECH BADGES ── */
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .badge {
+    background: #f1f5f9; border: 1px solid #e2e8f0;
+    color: #475569; font-size: 10px; font-weight: 600;
+    padding: 4px 10px; border-radius: 5px; letter-spacing: 0.05em;
+  }
+  .badge.cyan { background: #f0fdff; border-color: #bae6fd; color: #0284c7; }
+  .badge.purple { background: #faf5ff; border-color: #d8b4fe; color: #7c3aed; }
+  .badge.green { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cover { min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">
+      <div class="logo-mark">N</div>
+      <div class="logo-text">
+        <div class="logo-name">Invest Nova LG</div>
+        <div class="logo-sub">IT Solutions · LTD</div>
+      </div>
+    </div>
+    <div class="cover-label">Project Documentation · 2026</div>
+    <h1 class="cover-title">Project<br><em>Report</em></h1>
+    <p class="cover-sub">The complete story of building the Invest Nova LG corporate website and brand system — from concept to Vercel production deployment.</p>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <strong>Invest Nova LG</strong>
+      IT Solutions · LTD
+    </div>
+    <div class="cover-divider"></div>
+    <div class="cover-meta" style="text-align:right">
+      <strong>Prepared by: Ilja Levit</strong>
+      May 2026 · Confidential
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 1: WORK REPORT ══ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-logo">
+      <div class="ph-mark">N</div>
+      <div class="ph-name">Invest Nova LG · Project Report</div>
+    </div>
+    <div class="page-num">Report 1 of 2</div>
+  </div>
+
+  <div class="section-badge"><span class="dot"></span>What Was Built</div>
+  <h1 class="report-title">Website &amp;<br><em>Brand System</em> Development</h1>
+  <p class="report-lead">The project was built from scratch: from naming and brand concept through to a fully functional Next.js website featuring four interactive tools and seven-language support.</p>
+
+  <div class="grid2">
+    <div class="stat-card">
+      <div class="stat-label">Pages developed</div>
+      <div class="stat-value">5</div>
+      <div class="stat-sub">Landing + 4 tool pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Interface languages</div>
+      <div class="stat-value">7</div>
+      <div class="stat-sub">EN · DE · FR · RU · AR · HI · ZH</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Translation keys</div>
+      <div class="stat-value">300+</div>
+      <div class="stat-sub">Centralised i18n.ts file</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Lines of code</div>
+      <div class="stat-value">~5 000</div>
+      <div class="stat-sub">TypeScript · CSS · HTML</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PHASE 1 -->
+  <div class="phase active">
+    <div class="phase-num">Phase 01</div>
+    <h2>Concept &amp; Brand Strategy</h2>
+    <p>Building the semantic foundation of the company — before any visual work began.</p>
+    <ul class="checklist">
+      <li>Developed the name <strong>Invest Nova LG</strong> and brand logic</li>
+      <li>Positioning: European IT company delivering digital solutions for business</li>
+      <li>Formulated mission, vision and five core company values</li>
+      <li>Defined brand voice &amp; tone (4 principles with examples)</li>
+      <li>Target audience analysis and market positioning (UK/EU)</li>
+    </ul>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase purple">
+    <div class="phase-num">Phase 02</div>
+    <h2>Brandbook — Full Brand System</h2>
+    <p>Designed and implemented as a dedicated website page <code>/brandbook</code>. Bilingual: RU + EN.</p>
+    <table>
+      <thead>
+        <tr><th>Brandbook Section</th><th>Content</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Identity</td><td>Name logic, LG suffix, brand essence</td></tr>
+        <tr><td>Mission / Vision</td><td>Full articulated statements</td></tr>
+        <tr><td>Values</td><td>5 value cards with descriptions</td></tr>
+        <tr><td>Logo</td><td>Usage rules, clear space, 6 prohibited variants</td></tr>
+        <tr><td>Colour Palette</td><td>8 colours with HEX + RGB + CSS variables, copy-to-clipboard</td></tr>
+        <tr><td>Typography</td><td>6-level type scale with live previews</td></tr>
+        <tr><td>Iconography</td><td>Style, principles, icon examples</td></tr>
+        <tr><td>Motion</td><td>4 animation principles with technical parameters</td></tr>
+        <tr><td>Brand Voice</td><td>4 principles + right/wrong example pairs</td></tr>
+        <tr><td>Downloads</td><td>Brand file section: PDF, Figma, PNG</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase green">
+    <div class="phase-num">Phase 03</div>
+    <h2>Website Development — 5 Pages</h2>
+
+    <p><strong>Landing page /</strong></p>
+    <ul class="checklist">
+      <li>Hero section with animated gradient and blur orb effects</li>
+      <li>Services block (6 cards)</li>
+      <li>Cases / portfolio section</li>
+      <li>About the company block</li>
+      <li>CTA and contact form</li>
+    </ul>
+
+    <p style="margin-top:16px"><strong>Cost Calculator /calc</strong></p>
+    <ul class="checklist">
+      <li>Multi-step interactive wizard (7 categories)</li>
+      <li>Project type → features → scale → design → platform → timeline → support</li>
+      <li>Live price counter updating in real time</li>
+      <li>Result screen with detailed cost breakdown</li>
+      <li>Currency £ (en-GB), animated price increment</li>
+    </ul>
+
+    <p style="margin-top:16px"><strong>Client Brief /brief</strong></p>
+    <ul class="checklist">
+      <li>7-step form: company → type → style → audience → budget → timeline → contacts</li>
+      <li>Style tags (8) and audience tags (6), multi-select</li>
+      <li>Unique brief number with date</li>
+      <li>Confirmation result screen with summary</li>
+    </ul>
+
+    <p style="margin-top:16px"><strong>Project Tracker /tracker</strong></p>
+    <ul class="checklist">
+      <li>Coming Soon page with notification sign-up form</li>
+      <li>Full UI mockup: sidebar, sprint progress, milestone cards, update feed</li>
+      <li>6 feature cards showcasing future tracker capabilities</li>
+    </ul>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase amber">
+    <div class="phase-num">Phase 04</div>
+    <h2>Internationalisation — 7 Languages</h2>
+    <div class="badges">
+      <span class="badge cyan">EN</span>
+      <span class="badge">DE</span>
+      <span class="badge">FR</span>
+      <span class="badge purple">RU</span>
+      <span class="badge">AR</span>
+      <span class="badge">HI</span>
+      <span class="badge">ZH</span>
+    </div>
+    <ul class="checklist">
+      <li>Centralised <code>i18n.ts</code> file with 300+ translation keys</li>
+      <li>Language switcher in the header of all tool pages</li>
+      <li>All 4 tool pages fully translated into all 7 languages</li>
+      <li>RTL support for Arabic</li>
+      <li>Brandbook: fully translated in RU and EN; all other languages → EN</li>
+    </ul>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase blue">
+    <div class="phase-num">Phase 05</div>
+    <h2>Deployment &amp; Infrastructure</h2>
+    <ul class="checklist">
+      <li>GitHub repository (IVM-ivia/nova)</li>
+      <li>CI/CD via Vercel — automatic deployment on every push to main</li>
+      <li>Production: nova-coral-two.vercel.app</li>
+      <li>TypeScript: 0 compilation errors</li>
+    </ul>
+    <div class="badges">
+      <span class="badge cyan">Next.js 16</span>
+      <span class="badge cyan">React 19</span>
+      <span class="badge purple">TypeScript</span>
+      <span class="badge">Custom CSS</span>
+      <span class="badge green">Vercel</span>
+      <span class="badge">GitHub CI/CD</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Invest Nova LG · IT Solutions</span>
+    <span>Confidential · May 2026</span>
+  </div>
+</div>
+
+<!-- ══ PAGE 2: COST REPORT ══ -->
+<div class="page page-break">
+  <div class="page-header">
+    <div class="page-header-logo">
+      <div class="ph-mark">N</div>
+      <div class="ph-name">Invest Nova LG · Project Cost Report</div>
+    </div>
+    <div class="page-num">Report 2 of 2</div>
+  </div>
+
+  <div class="section-badge"><span class="dot"></span>Cost of Development</div>
+  <h1 class="report-title">Project Cost<br><em>Assessment</em></h1>
+  <p class="report-lead">Market rates for the United Kingdom / Western Europe. Team: 2 specialists. The project was delivered without agency overhead, resulting in highly efficient pricing.</p>
+
+  <div class="grid2">
+    <div class="stat-card">
+      <div class="stat-label">Project Manager</div>
+      <div class="stat-value">€88</div>
+      <div class="stat-sub">Per hour · Ilya (PM + Creative Director)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Developer</div>
+      <div class="stat-value">€76</div>
+      <div class="stat-sub">Per hour · Senior Next.js / TypeScript</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 style="font-size:17px;font-weight:700;color:#0f172a;margin-bottom:16px">Ilya — PM &amp; Creative Direction</h2>
+  <table>
+    <thead>
+      <tr><th>Task</th><th>Hours</th><th>Amount</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Concept, positioning, brand platform</td><td>10 h</td><td>€880</td></tr>
+      <tr><td>Brandbook content (all copy, structure)</td><td>18 h</td><td>€1 584</td></tr>
+      <tr><td>Site architecture, UX logic</td><td>8 h</td><td>€704</td></tr>
+      <tr><td>Page content (copy, UX writing)</td><td>12 h</td><td>€1 056</td></tr>
+      <tr><td>i18n — briefing, translation oversight</td><td>8 h</td><td>€704</td></tr>
+      <tr><td>QA, revisions, iterations</td><td>14 h</td><td>€1 232</td></tr>
+      <tr><td>Project coordination &amp; communication</td><td>8 h</td><td>€704</td></tr>
+      <tr class="total-row"><td><strong>Subtotal · Ilya</strong></td><td><strong>78 h</strong></td><td><strong>€6 864</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="font-size:17px;font-weight:700;color:#0f172a;margin:28px 0 16px">Developer — Frontend / Full-stack</h2>
+  <table>
+    <thead>
+      <tr><th>Task</th><th>Hours</th><th>Amount</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Next.js project setup, configuration, architecture</td><td>5 h</td><td>€380</td></tr>
+      <tr><td>Design system: CSS variables, typography, animations</td><td>14 h</td><td>€1 064</td></tr>
+      <tr><td>Components: TopNav, BlurOrbs, layout</td><td>5 h</td><td>€380</td></tr>
+      <tr><td>Landing page /</td><td>16 h</td><td>€1 216</td></tr>
+      <tr><td>Brandbook page /brandbook</td><td>14 h</td><td>€1 064</td></tr>
+      <tr><td>Calculator /calc</td><td>14 h</td><td>€1 064</td></tr>
+      <tr><td>Brief wizard /brief</td><td>14 h</td><td>€1 064</td></tr>
+      <tr><td>Tracker /tracker</td><td>8 h</td><td>€608</td></tr>
+      <tr><td>i18n system (300+ keys, 7 languages)</td><td>14 h</td><td>€1 064</td></tr>
+      <tr><td>CSS polish, bug fixing</td><td>8 h</td><td>€608</td></tr>
+      <tr><td>Vercel deployment, CI/CD</td><td>3 h</td><td>€228</td></tr>
+      <tr class="total-row"><td><strong>Subtotal · Developer</strong></td><td><strong>115 h</strong></td><td><strong>€8 740</strong></td></tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <div class="callout">
+    <div class="callout-label">Total Project Cost</div>
+    <div class="callout-value">€15 604</div>
+    <div class="callout-sub">78 h (PM) + 115 h (Dev) = 193 hours total · Market estimate: €14 000 – €16 000</div>
+  </div>
+
+  <h2 style="font-size:17px;font-weight:700;color:#0f172a;margin:32px 0 16px">Market Comparison · UK / EU</h2>
+
+  <table>
+    <thead>
+      <tr><th>Component</th><th>UK/EU Market</th><th>Our Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Next.js website — 5 pages</td><td>€6 000 – €9 000</td><td rowspan="5" style="vertical-align:middle;text-align:right;font-size:20px;font-weight:800;color:#0284c7">€15 604</td></tr>
+      <tr><td>3 interactive modules (calc, brief, tracker)</td><td>€4 000 – €6 000</td></tr>
+      <tr><td>Brandbook as a page</td><td>€2 000 – €3 000</td></tr>
+      <tr><td>i18n — 7 languages</td><td>€2 000 – €3 000</td></tr>
+      <tr><td>PM / Creative Direction</td><td>€5 000 – €8 000</td></tr>
+      <tr class="total-row"><td><strong>Total market range</strong></td><td><strong>€19 000 – €29 000</strong></td><td><strong>€15 604</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-purple">
+    <div class="callout-label">Savings vs. market rate</div>
+    <div class="callout-value" style="color:#7c3aed">~€7 000 – €13 000</div>
+    <div class="callout-sub">Result of an efficient two-person team with zero agency overhead</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Invest Nova LG · IT Solutions</span>
+    <span>Confidential · May 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Technical Report — Invest Nova LG</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --navy:   #070e1a;
+    --cyan:   #00d9ff;
+    --purple: #8b5cf6;
+    --ink:    #0f172a;
+    --mid:    #334155;
+    --muted:  #64748b;
+    --light:  #94a3b8;
+    --rule:   #e2e8f0;
+    --bg:     #f8fafc;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12.5px;
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ─── COVER ─────────────────────────────────────── */
+  .cover {
+    width: 100%; min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 56px 64px 52px;
+    page-break-after: always;
+    position: relative; overflow: hidden;
+  }
+  .cover-orb1 {
+    position:absolute; top:-100px; right:-100px;
+    width:500px; height:500px; border-radius:50%;
+    background: radial-gradient(circle, rgba(0,217,255,.10) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .cover-orb2 {
+    position:absolute; bottom:-80px; left:60px;
+    width:380px; height:380px; border-radius:50%;
+    background: radial-gradient(circle, rgba(139,92,246,.09) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .cover-top { position:relative; z-index:1; }
+
+  .c-logo { display:flex; align-items:center; gap:14px; margin-bottom:72px; }
+  .c-logo-mark {
+    width:44px; height:44px; border-radius:11px;
+    background: linear-gradient(135deg,#00d9ff,#8b5cf6);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; font-weight:900; color:var(--navy); flex-shrink:0;
+  }
+  .c-logo-name { font-size:14px; font-weight:700; color:#fff; letter-spacing:.09em; text-transform:uppercase; }
+  .c-logo-sub  { font-size:9.5px; color:rgba(255,255,255,.38); letter-spacing:.16em; text-transform:uppercase; margin-top:2px; }
+
+  .c-eyebrow {
+    font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:18px;
+  }
+  .c-title {
+    font-size:50px; font-weight:900; color:#fff;
+    line-height:1.08; letter-spacing:-.025em; margin-bottom:14px;
+  }
+  .c-title em {
+    font-style:normal;
+    background:linear-gradient(110deg,#00d9ff 0%,#8b5cf6 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .c-subtitle {
+    font-size:14px; font-weight:300; color:rgba(255,255,255,.46);
+    line-height:1.75; max-width:440px; margin-top:6px;
+  }
+
+  .cover-bottom {
+    position:relative; z-index:1;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px solid rgba(255,255,255,.08); padding-top:28px;
+  }
+  .c-meta { font-size:10.5px; color:rgba(255,255,255,.32); line-height:1.8; }
+  .c-meta strong { color:rgba(255,255,255,.58); display:block; font-weight:600; font-size:11.5px; }
+  .c-ref {
+    font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+    color:rgba(255,255,255,.22); text-align:right;
+  }
+
+  /* ─── PAGE ───────────────────────────────────────── */
+  .page {
+    padding: 52px 64px 48px;
+    page-break-before: auto;
+  }
+  .page-break { page-break-before: always; }
+
+  .page-hdr {
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom:18px; border-bottom:1.5px solid var(--rule);
+    margin-bottom:40px;
+  }
+  .page-hdr-left { display:flex; align-items:center; gap:10px; }
+  .page-hdr-mark {
+    width:26px; height:26px; border-radius:6px;
+    background:linear-gradient(135deg,#00d9ff,#8b5cf6);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:900; color:var(--navy);
+  }
+  .page-hdr-txt { font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+  .page-hdr-right { font-size:9.5px; color:var(--light); letter-spacing:.08em; }
+
+  /* ─── SECTION ─────────────────────────────────────── */
+  .sec-label {
+    display:inline-flex; align-items:center; gap:7px;
+    background:#f0fdff; border:1px solid #bae6fd;
+    color:#0369a1; font-size:9px; font-weight:700;
+    letter-spacing:.18em; text-transform:uppercase;
+    padding:5px 13px; border-radius:20px; margin-bottom:14px;
+  }
+  .sec-label-dot { width:5px; height:5px; border-radius:50%; background:var(--cyan); }
+
+  h1.page-title {
+    font-size:28px; font-weight:800; color:var(--ink);
+    line-height:1.18; letter-spacing:-.02em; margin-bottom:8px;
+  }
+  h1.page-title em { font-style:normal; color:#0284c7; }
+  .page-lead {
+    font-size:13.5px; color:var(--muted); font-weight:400;
+    line-height:1.8; max-width:560px; margin-bottom:36px;
+  }
+
+  /* ─── STACK GRID ─────────────────────────────────── */
+  .stack-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    gap:14px; margin:20px 0 32px;
+  }
+  .stack-card {
+    border:1.5px solid var(--rule); border-radius:10px;
+    padding:16px 18px; background:#fff;
+  }
+  .stack-card-cat {
+    font-size:8.5px; font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--light); margin-bottom:10px;
+  }
+  .stack-items { display:flex; flex-direction:column; gap:6px; }
+  .stack-item {
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:500; color:var(--mid);
+  }
+  .stack-dot {
+    width:6px; height:6px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,#00d9ff,#8b5cf6);
+  }
+  .stack-ver {
+    margin-left:auto; font-size:9.5px; color:var(--light);
+    font-weight:400; letter-spacing:.04em;
+  }
+
+  /* ─── MODULE BLOCK ───────────────────────────────── */
+  .module {
+    margin-bottom:28px;
+    border-left:2.5px solid var(--rule);
+    padding-left:20px;
+  }
+  .module.m-cyan   { border-left-color:#00d9ff; }
+  .module.m-purple { border-left-color:#8b5cf6; }
+  .module.m-green  { border-left-color:#10b981; }
+  .module.m-amber  { border-left-color:#f59e0b; }
+  .module.m-blue   { border-left-color:#3b82f6; }
+
+  .module-eyebrow {
+    font-size:8.5px; font-weight:700; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--light); margin-bottom:3px;
+  }
+  .module h2 {
+    font-size:16px; font-weight:700; color:var(--ink);
+    margin-bottom:8px; letter-spacing:-.01em;
+  }
+  .module p {
+    font-size:12.5px; color:var(--muted); line-height:1.75;
+    margin-bottom:8px;
+  }
+
+  /* ─── FEATURE LIST ───────────────────────────────── */
+  ul.feat { list-style:none; margin:6px 0; }
+  ul.feat li {
+    display:flex; align-items:flex-start; gap:8px;
+    padding:4px 0; font-size:12px; color:var(--mid);
+    border-bottom:1px solid #f8fafc;
+  }
+  ul.feat li:last-child { border-bottom:none; }
+  ul.feat li::before {
+    content:''; flex-shrink:0;
+    width:4px; height:4px; border-radius:50%;
+    background:#00d9ff; margin-top:7px;
+  }
+
+  /* ─── TABLE ──────────────────────────────────────── */
+  table {
+    width:100%; border-collapse:collapse;
+    margin:14px 0 22px; font-size:12px;
+  }
+  thead th {
+    padding:9px 14px; text-align:left;
+    font-size:8.5px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--light);
+    background:var(--bg); border-bottom:1.5px solid var(--rule);
+  }
+  tbody td {
+    padding:9px 14px; color:var(--mid);
+    border-bottom:1px solid #f1f5f9; vertical-align:top;
+  }
+  tbody tr:last-child td { border-bottom:none; }
+  tbody td:first-child { font-weight:600; color:var(--ink); }
+
+  /* ─── BADGE ROW ──────────────────────────────────── */
+  .badges { display:flex; flex-wrap:wrap; gap:5px; margin:10px 0; }
+  .badge {
+    font-size:9.5px; font-weight:600; letter-spacing:.05em;
+    padding:3px 10px; border-radius:4px;
+    border:1px solid var(--rule); background:var(--bg); color:var(--muted);
+  }
+  .badge.b-cyan   { background:#f0fdff; border-color:#bae6fd; color:#0284c7; }
+  .badge.b-purple { background:#faf5ff; border-color:#d8b4fe; color:#7c3aed; }
+  .badge.b-green  { background:#f0fdf4; border-color:#bbf7d0; color:#15803d; }
+
+  /* ─── INFRA GRID ─────────────────────────────────── */
+  .infra-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
+  .infra-card {
+    background:var(--bg); border:1.5px solid var(--rule);
+    border-radius:10px; padding:16px 18px;
+  }
+  .infra-card-label {
+    font-size:8.5px; font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--light); margin-bottom:6px;
+  }
+  .infra-card-val {
+    font-size:15px; font-weight:700; color:var(--ink);
+    letter-spacing:-.01em; margin-bottom:3px;
+  }
+  .infra-card-sub { font-size:11px; color:var(--muted); }
+
+  /* ─── DIVIDER ────────────────────────────────────── */
+  hr.rule { border:none; border-top:1px solid var(--rule); margin:28px 0; }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  .page-footer {
+    margin-top:48px; padding-top:16px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:9.5px; color:var(--light); letter-spacing:.06em;
+  }
+
+  /* ─── SUMMARY BOX ────────────────────────────────── */
+  .summary-box {
+    background:var(--navy); border-radius:12px;
+    padding:24px 28px; margin:24px 0;
+    color:rgba(255,255,255,.85); font-size:13px; line-height:1.8;
+    position:relative; overflow:hidden;
+  }
+  .summary-box::before {
+    content:''; position:absolute; top:-40px; right:-40px;
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle, rgba(0,217,255,.12) 0%, transparent 65%);
+  }
+  .summary-box p { position:relative; z-index:1; }
+  .summary-box strong { color:#fff; }
+
+  @media print {
+    body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-orb1"></div>
+  <div class="cover-orb2"></div>
+
+  <div class="cover-top">
+    <div class="c-logo">
+      <div class="c-logo-mark">N</div>
+      <div>
+        <div class="c-logo-name">Invest Nova LG</div>
+        <div class="c-logo-sub">IT Solutions · LTD</div>
+      </div>
+    </div>
+    <div class="c-eyebrow">Technical Report · 2026</div>
+    <div class="c-title">Technical<br>Project<br><em>Documentation</em></div>
+    <div class="c-subtitle">Technology stack, system architecture and delivered modules for the Invest Nova LG corporate web platform.</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="c-meta">
+      <strong>Invest Nova LG</strong>
+      IT Solutions · LTD · European Market
+    </div>
+    <div class="c-ref">
+      Prepared by: Ilja Levit<br>
+      May 2026 · Confidential
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 1 — STACK & ARCHITECTURE ══════════ -->
+<div class="page">
+  <div class="page-hdr">
+    <div class="page-hdr-left">
+      <div class="page-hdr-mark">N</div>
+      <div class="page-hdr-txt">Invest Nova LG · Technical Report</div>
+    </div>
+    <div class="page-hdr-right">Section 1 / Stack &amp; Architecture</div>
+  </div>
+
+  <div class="sec-label"><span class="sec-label-dot"></span>Project Overview</div>
+  <h1 class="page-title">Technology Stack<br>&amp; <em>Architecture</em></h1>
+  <p class="page-lead">The Invest Nova LG corporate web platform is built on a modern production stack featuring server-side rendering, strict type safety and fully automated CI/CD deployment.</p>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="stack-card-cat">Frontend</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot"></div>Next.js<span class="stack-ver">16.2</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>React<span class="stack-ver">19.2</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>TypeScript<span class="stack-ver">5.x</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>Custom CSS</div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-card-cat">Infrastructure</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot"></div>Vercel<span class="stack-ver">Cloud</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>GitHub<span class="stack-ver">CI/CD</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>Git<span class="stack-ver">main</span></div>
+        <div class="stack-item"><div class="stack-dot"></div>Edge Network</div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-card-cat">Capabilities</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot"></div>SSR / SSG</div>
+        <div class="stack-item"><div class="stack-dot"></div>i18n · 7 languages</div>
+        <div class="stack-item"><div class="stack-dot"></div>RTL (Arabic)</div>
+        <div class="stack-item"><div class="stack-dot"></div>Responsive design</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <p>The project is built on the <strong>Next.js 16 App Router</strong> architecture with Client Components (<code>'use client'</code>) for all interactive modules. The entire codebase is written in strict TypeScript with zero compilation errors. Styling is delivered through a centralised <strong>CSS custom properties token system</strong> that enforces visual consistency across all pages. Deployment is triggered automatically on every commit to the <strong>main</strong> branch via Vercel.</p>
+  </div>
+
+  <hr class="rule">
+
+  <div class="sec-label"><span class="sec-label-dot"></span>Structure</div>
+  <h2 style="font-size:17px;font-weight:700;margin-bottom:14px;color:var(--ink)">Application Architecture</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology / Solution</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Routing</td>
+        <td>Next.js App Router</td>
+        <td>File-based routing, nested layouts, SSR / SSG</td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>React useState / useCallback</td>
+        <td>Local state for forms, wizard steps, active language</td>
+      </tr>
+      <tr>
+        <td>Internationalisation</td>
+        <td>Custom i18n.ts</td>
+        <td>Dictionary of 300+ keys, 7 languages, tl() helper function</td>
+      </tr>
+      <tr>
+        <td>Design tokens</td>
+        <td>CSS Custom Properties</td>
+        <td>Unified token system: colours, spacing, typography</td>
+      </tr>
+      <tr>
+        <td>Components</td>
+        <td>React Server / Client Components</td>
+        <td>TopNav, BlurOrbs and reusable UI blocks</td>
+      </tr>
+      <tr>
+        <td>Deployment</td>
+        <td>Vercel + GitHub Actions</td>
+        <td>Auto-deploy, edge CDN, preview environments</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span>Invest Nova LG · IT Solutions · LTD</span>
+    <span>Technical Report · Confidential · May 2026</span>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 2 — MODULES ══════════ -->
+<div class="page page-break">
+  <div class="page-hdr">
+    <div class="page-hdr-left">
+      <div class="page-hdr-mark">N</div>
+      <div class="page-hdr-txt">Invest Nova LG · Technical Report</div>
+    </div>
+    <div class="page-hdr-right">Section 2 / Modules &amp; Functionality</div>
+  </div>
+
+  <div class="sec-label"><span class="sec-label-dot"></span>Delivered Modules</div>
+  <h1 class="page-title">Functional<br><em>Modules</em></h1>
+  <p class="page-lead">The platform comprises five pages including four interactive tools. Each module is implemented as an independent React component with its own state management logic.</p>
+
+  <!-- LANDING -->
+  <div class="module m-cyan">
+    <div class="module-eyebrow">Module 01 · /</div>
+    <h2>Landing Page</h2>
+    <p>Corporate landing page with animated hero section, services block, case studies and a contact form.</p>
+    <ul class="feat">
+      <li>Hero section with CSS gradient animation and blur orb effects</li>
+      <li>Services block — 6 cards with icons and descriptions</li>
+      <li>Portfolio / case studies section</li>
+      <li>About the company section with core values</li>
+      <li>CTA block and contact form</li>
+    </ul>
+  </div>
+
+  <!-- BRANDBOOK -->
+  <div class="module m-purple">
+    <div class="module-eyebrow">Module 02 · /brandbook</div>
+    <h2>Brandbook — Company Brand System</h2>
+    <p>Complete visual and verbal identity documentation delivered as an interactive web page. Bilingual: RU / EN.</p>
+    <ul class="feat">
+      <li>Brand philosophy: mission, vision, 5 values</li>
+      <li>Logo: clear space rules, permitted variants, 6 prohibited usages</li>
+      <li>Colour palette: 8 colours with HEX / RGB / CSS variables and copy-to-clipboard</li>
+      <li>Type scale: 6 levels with live previews</li>
+      <li>Iconography, motion principles, brand voice with right/wrong example pairs</li>
+      <li>Brand asset download section (PDF, Figma, PNG)</li>
+    </ul>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="module m-green">
+    <div class="module-eyebrow">Module 03 · /calc</div>
+    <h2>Project Cost Calculator</h2>
+    <p>Interactive multi-step wizard for estimating development costs. Prices displayed in British Pounds (£, en-GB locale).</p>
+    <ul class="feat">
+      <li>7 sequential selection steps: project type, features, scale, design, platform, timeline, support</li>
+      <li>Live price counter with animated real-time updates</li>
+      <li>Result screen with itemised cost breakdown by category</li>
+      <li>Full i18n support across all 7 languages</li>
+    </ul>
+  </div>
+
+  <!-- BRIEF -->
+  <div class="module m-amber">
+    <div class="module-eyebrow">Module 04 · /brief</div>
+    <h2>Client Project Brief</h2>
+    <p>Seven-step requirements intake form for project kick-off. Generates a structured brief with a unique reference number and date stamp.</p>
+    <ul class="feat">
+      <li>7 steps: company details → project type → style → audience → budget → timeline → contacts</li>
+      <li>Style tags (8 options) and audience tags (6 options), multi-select</li>
+      <li>Unique brief reference number, localised date format (en-GB)</li>
+      <li>Confirmation screen summarising all submitted responses</li>
+      <li>Full i18n support across all 7 languages</li>
+    </ul>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="module m-blue">
+    <div class="module-eyebrow">Module 05 · /tracker</div>
+    <h2>Project Tracker</h2>
+    <p>Announcement page for an upcoming project management tool, featuring a full UI demonstration of planned functionality.</p>
+    <ul class="feat">
+      <li>Launch notification sign-up form</li>
+      <li>Full UI mockup: sidebar navigation, sprint progress, milestone cards, activity feed</li>
+      <li>6 feature cards describing tracker capabilities</li>
+      <li>Full i18n support across all 7 languages</li>
+    </ul>
+  </div>
+
+  <hr class="rule">
+
+  <div class="sec-label"><span class="sec-label-dot"></span>Internationalisation</div>
+  <h2 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--ink)">Multi-language i18n System</h2>
+
+  <div class="infra-grid">
+    <div class="infra-card">
+      <div class="infra-card-label">Languages</div>
+      <div class="infra-card-val">7</div>
+      <div class="infra-card-sub">EN · DE · FR · RU · AR · HI · ZH</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-card-label">Translation keys</div>
+      <div class="infra-card-val">300+</div>
+      <div class="infra-card-sub">Centralised i18n.ts, tl(key, lang) helper</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-card-label">RTL support</div>
+      <div class="infra-card-val">Arabic</div>
+      <div class="infra-card-sub">Mirrored CSS layout for AR locale</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-card-label">Deployment</div>
+      <div class="infra-card-val">Vercel</div>
+      <div class="infra-card-sub">Auto-deploy · Edge CDN · GitHub CI/CD</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Invest Nova LG · IT Solutions · LTD</span>
+    <span>Technical Report · Confidential · May 2026</span>
+  </div>
+</div>
+
+</body>
+</html>
