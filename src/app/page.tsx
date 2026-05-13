@@ -26,9 +26,9 @@ function fmt(n: number) { return '£' + n.toLocaleString('en-GB'); }
    SLIDE COMPONENTS
 ══════════════════════════════════════════════════════ */
 
-function HeroSlide({ onServices, onContact }: { onServices: () => void; onContact: () => void }) {
+function HeroSlide({ onServices, onContact, sClass }: { onServices: () => void; onContact: () => void; sClass: string }) {
   return (
-    <section className="slide slide-hero active" data-index="0">
+    <section className={`slide slide-hero ${sClass}`} data-index="0">
       <div className="hero-left">
         <div className="overline">Information Technologies</div>
         <h1>Invest<br /><em>Nova</em><br />LG</h1>
@@ -69,7 +69,7 @@ function HeroSlide({ onServices, onContact }: { onServices: () => void; onContac
   );
 }
 
-function AboutSlide({ active }: { active: boolean }) {
+function AboutSlide({ active, sClass }: { active: boolean; sClass: string }) {
   const [counts, setCounts] = useState([0, 0, 0, 0]);
   const targets = [50, 30, 5, 8];
   const animated = useRef(false);
@@ -89,7 +89,7 @@ function AboutSlide({ active }: { active: boolean }) {
   }, [active]);
 
   return (
-    <section className="slide slide-about" data-index="1">
+    <section className={`slide slide-about ${sClass}`} data-index="1">
       <div className="about-left">
         <div className="overline">About Us</div>
         <h2>Technology<br />that <em>works</em></h2>
@@ -137,7 +137,7 @@ function AboutSlide({ active }: { active: boolean }) {
   );
 }
 
-function ServicesSlide({ onContact }: { onContact: () => void }) {
+function ServicesSlide({ onContact, sClass }: { onContact: () => void; sClass: string }) {
   const svcs = [
     ['ico-globe','Web Development','Corporate websites, platforms, web apps of any complexity'],
     ['ico-gear','Enterprise Systems','ERP, CRM, SaaS solutions tailored to your business'],
@@ -146,7 +146,7 @@ function ServicesSlide({ onContact }: { onContact: () => void }) {
     ['ico-cloud','IT Infrastructure','DevOps, cloud, CI/CD, monitoring and support'],
   ];
   return (
-    <section className="slide slide-services" data-index="2">
+    <section className={`slide slide-services ${sClass}`} data-index="2">
       <div className="services-left">
         <div className="overline">What We Do</div>
         <h2>What we<br /><em>build</em></h2>
@@ -169,14 +169,14 @@ function ServicesSlide({ onContact }: { onContact: () => void }) {
   );
 }
 
-function TechSlide() {
+function TechSlide({ sClass }: { sClass: string }) {
   const pills = [
     ['AI / ML',true,false],['Cloud',true,false],['React',false,true],['Next.js',false,true],
     ['Node.js',false,false],['Python',false,true],['Kubernetes',true,false],['Docker',false,true],
     ['AWS / GCP',false,false],['LLM API',true,true],['PostgreSQL',false,false],['GraphQL',false,true],
   ];
   return (
-    <section className="slide slide-tech" data-index="3">
+    <section className={`slide slide-tech ${sClass}`} data-index="3">
       <div className="tech-left">
         <div className="overline">Technology Stack</div>
         <h2>Tools of<br />the <em>future</em></h2>
@@ -217,7 +217,7 @@ function TechSlide() {
   );
 }
 
-function ProcessSlide() {
+function ProcessSlide({ sClass }: { sClass: string }) {
   const steps = [
     ['Analysis & Briefing','We study business tasks and form technical specifications'],
     ['Architecture & Design','We design the system and create interface prototypes'],
@@ -226,7 +226,7 @@ function ProcessSlide() {
     ['Support & Growth','Monitoring, updates, system scaling'],
   ];
   return (
-    <section className="slide slide-process" data-index="4">
+    <section className={`slide slide-process ${sClass}`} data-index="4">
       <div className="process-left">
         <div className="overline">How We Work</div>
         <h2>From idea<br />to <em>result</em></h2>
@@ -267,7 +267,7 @@ function ProcessSlide() {
   );
 }
 
-function RoiSlide({ onContact }: { onContact: () => void }) {
+function RoiSlide({ onContact, sClass }: { onContact: () => void; sClass: string }) {
   const [emp, setEmp] = useState(10);
   const [hrs, setHrs] = useState(10);
   const [sal, setSal] = useState(3000);
@@ -276,7 +276,7 @@ function RoiSlide({ onContact }: { onContact: () => void }) {
   const pct = (v: number, mn: number, mx: number) => ((v - mn) / (mx - mn) * 100).toFixed(1) + '%';
 
   return (
-    <section className="slide slide-roi" data-index="5">
+    <section className={`slide slide-roi ${sClass}`} data-index="5">
       <div className="roi-left">
         <div className="overline">ROI Calculator</div>
         <h2>What does<br /><em>inaction</em> cost?</h2>
@@ -343,9 +343,9 @@ function RoiSlide({ onContact }: { onContact: () => void }) {
   );
 }
 
-function ContactSlide() {
+function ContactSlide({ sClass }: { sClass: string }) {
   return (
-    <section className="slide slide-contact" data-index="6">
+    <section className={`slide slide-contact ${sClass}`} data-index="6">
       <div className="contact-left">
         <div className="overline">Contact</div>
         <h2>{"Let's start"}<br />a <em>project</em></h2>
@@ -455,40 +455,13 @@ export default function HomePage() {
       <Sidebar current={cur} total={TOTAL} onGoTo={goTo} />
 
       <div className="slides-wrap">
-        {/* Slide 0 — Hero */}
-        <div className={slideClass(0) ? '' : undefined} style={{position:'absolute',inset:0,transform: cur === 0 ? 'translateY(0)' : cur > 0 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 0 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <HeroSlide onServices={() => goTo(2)} onContact={() => goTo(6)} />
-        </div>
-
-        {/* Slide 1 — About */}
-        <div style={{position:'absolute',inset:0,transform: cur === 1 ? 'translateY(0)' : cur > 1 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 1 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <AboutSlide active={cur === 1} />
-        </div>
-
-        {/* Slide 2 — Services */}
-        <div style={{position:'absolute',inset:0,transform: cur === 2 ? 'translateY(0)' : cur > 2 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 2 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <ServicesSlide onContact={() => goTo(6)} />
-        </div>
-
-        {/* Slide 3 — Tech */}
-        <div style={{position:'absolute',inset:0,transform: cur === 3 ? 'translateY(0)' : cur > 3 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 3 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <TechSlide />
-        </div>
-
-        {/* Slide 4 — Process */}
-        <div style={{position:'absolute',inset:0,transform: cur === 4 ? 'translateY(0)' : cur > 4 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 4 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <ProcessSlide />
-        </div>
-
-        {/* Slide 5 — ROI */}
-        <div style={{position:'absolute',inset:0,transform: cur === 5 ? 'translateY(0)' : cur > 5 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 5 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <RoiSlide onContact={() => goTo(6)} />
-        </div>
-
-        {/* Slide 6 — Contact */}
-        <div style={{position:'absolute',inset:0,transform: cur === 6 ? 'translateY(0)' : cur > 6 ? 'translateY(-100%)' : 'translateY(100%)', opacity: cur === 6 ? 1 : 0, transition:'transform 750ms cubic-bezier(0.77,0,0.175,1), opacity 750ms cubic-bezier(0.77,0,0.175,1)'}}>
-          <ContactSlide />
-        </div>
+        <HeroSlide    sClass={slideClass(0)} onServices={() => goTo(2)} onContact={() => goTo(6)} />
+        <AboutSlide   sClass={slideClass(1)} active={cur === 1} />
+        <ServicesSlide sClass={slideClass(2)} onContact={() => goTo(6)} />
+        <TechSlide    sClass={slideClass(3)} />
+        <ProcessSlide sClass={slideClass(4)} />
+        <RoiSlide     sClass={slideClass(5)} onContact={() => goTo(6)} />
+        <ContactSlide sClass={slideClass(6)} />
       </div>
 
       {/* Chrome UI */}
