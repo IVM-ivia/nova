@@ -1609,8 +1609,10 @@ input[type=range].brief-range::-webkit-slider-thumb { -webkit-appearance: none; 
   .logo-title { font-size: 11px; }
   .logo-sub { display: none; }
   .progress-line { display: none; }
-  .nav-list { flex-direction: row; gap: 4px; flex-wrap: nowrap; overflow-x: auto; }
-  .nav-item { padding: 7px 10px; gap: 6px; opacity: 0.6; }
+  .nav-list { flex-direction: row; gap: 4px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .nav-list::-webkit-scrollbar { display: none; }
+  .nav-item { padding: 7px 10px; gap: 6px; opacity: 0.6; cursor: pointer !important; -webkit-tap-highlight-color: transparent; }
+  .nav-item.active { opacity: 1; }
   .nav-icon { width: 26px; height: 26px; }
   .nav-label { font-size: 10px; }
   .nav-sublabel { display: none; }
@@ -1622,11 +1624,12 @@ input[type=range].brief-range::-webkit-slider-thumb { -webkit-appearance: none; 
     position: static;
     left: 0; top: 0; right: 0; bottom: 0;
     overflow: visible;
-    margin-top: 57px; /* sidebar height */
+    margin-top: 57px; /* topbar height */
   }
   .slide {
     position: static;
     transform: none !important;
+    scroll-margin-top: 58px;
     opacity: 1 !important;
     transition: none;
     min-height: auto;

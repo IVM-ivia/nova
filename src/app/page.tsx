@@ -393,15 +393,29 @@ export default function HomePage() {
   const busyRef = useRef(false);
   const wtRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const isMobile = () => typeof window !== 'undefined' && window.innerWidth <= 768;
+
   const goTo = useCallback((n: number) => {
-    if (n === cur || busyRef.current || n < 0 || n >= TOTAL) return;
+    if (n < 0 || n >= TOTAL) return;
+    // Mobile: native scroll to slide section
+    if (isMobile()) {
+      setCur(n);
+      const el = document.querySelector(`.slide[data-index="${n}"]`) as HTMLElement | null;
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 58;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      return;
+    }
+    if (n === cur || busyRef.current) return;
     busyRef.current = true;
     setCur(n);
     setTimeout(() => { busyRef.current = false; }, 780);
   }, [cur]);
 
-  // wheel
+  // wheel — desktop only
   useEffect(() => {
+    if (isMobile()) return;
     const onWheel = (e: WheelEvent) => {
       if (wtRef.current) return;
       wtRef.current = setTimeout(() => { wtRef.current = null; }, 900);
@@ -422,9 +436,10 @@ export default function HomePage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [cur, goTo]);
 
-  // touch
+  // touch — desktop only (mobile uses native scroll)
   const tyRef = useRef(0);
   useEffect(() => {
+    if (isMobile()) return;
     const onStart = (e: TouchEvent) => { tyRef.current = e.touches[0].clientY; };
     const onEnd   = (e: TouchEvent) => {
       const d = tyRef.current - e.changedTouches[0].clientY;
@@ -435,8 +450,9 @@ export default function HomePage() {
     return () => { window.removeEventListener('touchstart', onStart); window.removeEventListener('touchend', onEnd); };
   }, [cur, goTo]);
 
-  // body overflow
+  // body overflow — desktop only (mobile needs native scroll)
   useEffect(() => {
+    if (isMobile()) return;
     document.body.style.overflow = 'hidden';
     document.body.style.height   = '100%';
     return () => { document.body.style.overflow = ''; document.body.style.height = ''; };
